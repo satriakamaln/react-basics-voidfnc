@@ -22,8 +22,11 @@ const Button = () => {
 const Shelf = () => {
     return (
         <>
-            <div className="shelf">Hello World</div>
-            <Button />
+            <div className="shelf">
+                <h2>Shelf Component</h2>
+                <p>This is a simple shelf component.</p>
+                <Button />
+            </div>
         </>
     );
 };
