@@ -1,6 +1,8 @@
 // import Card, { Shelf } from "./components/Card";
 import Counter from "./components/Counter";
 import Header from "./components/Header";
+import Like from "./components/Like";
+
 import Welcome from "./components/Welcome";
 
 // type Teacher = {
@@ -63,6 +65,8 @@ function App() {
             <Counter />
 
             <Welcome />
+
+            <Like />
         </div>
     );
 }
