@@ -1,9 +1,14 @@
+// import Welcome from "./components/Welcome";
 // import Card, { Shelf } from "./components/Card";
-import Counter from "./components/Counter";
+// import Counter from "./components/Counter";
 import Header from "./components/Header";
-import Like from "./components/Like";
-
-import Welcome from "./components/Welcome";
+// import Like from "./components/Like";
+import { Routes, Route } from "react-router";
+import TermsPage from "./pages/TermsPage";
+import HomePage from "./pages/HomePage";
+import NotFoundPage from "./pages/NotFoundPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
+import ProductListPage from "./pages/ProductListPage";
 
 // type Teacher = {
 //     name: string;
@@ -41,34 +46,41 @@ import Welcome from "./components/Welcome";
 
 function App() {
     return (
-        <div
-            style={{
-                padding: "16px 32px"
-            }}
-        >
+        <>
             <Header title="REACT BASICS" />
-
-            {/* <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-                {teachers.map((teacher) => {
-                    return (
-                        <Card
-                            key={teacher.id}
-                            year={teacher.year}
-                            job={teacher.job}
-                            name={teacher.name}
-                        />
-                    );
-                })}
-            </div> */}
-            {/* <Shelf /> */}
-
-            <Counter />
-
-            <Welcome />
-
-            <Like />
-        </div>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/terms" element={<TermsPage />} />
+                <Route path="/product-list" element={<ProductListPage />} />
+                <Route path="/product/:slug" element={<ProductDetailPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+        </>
     );
+    // <div
+    //     style={{
+    //         padding: "16px 32px"
+    //     }}
+    // >
+    //     <Header title="REACT BASICS" />
+
+    //     <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+    //         {teachers.map((teacher) => {
+    //             return (
+    //                 <Card
+    //                     key={teacher.id}
+    //                     year={teacher.year}
+    //                     job={teacher.job}
+    //                     name={teacher.name}
+    //                 />
+    //             );
+    //         })}
+    //     </div>
+    //     <Shelf />
+    //     <Counter />
+    //     <Welcome />
+    //     <Like />
+    // </div>
 }
 
 export default App;
