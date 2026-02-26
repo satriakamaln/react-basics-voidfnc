@@ -11,6 +11,7 @@ const HomePage = () => {
             <br />
             <Link to="/product-list">Halaman Product List</Link>
             <br />
+            <Link to="/form">Halaman Form</Link>
         </div>
     );
 };

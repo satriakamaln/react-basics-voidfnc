@@ -51,3 +51,8 @@
     font-size: 14px;
     transition: all 0.3s ease;
 }
+
+.container {
+    max-width: 80%;
+    margin: 0 auto;
+}
