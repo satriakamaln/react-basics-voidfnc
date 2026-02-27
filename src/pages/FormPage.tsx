@@ -1,4 +1,5 @@
-import { use, useRef, useState } from "react";
+// import { Ref } from "react";
+import { useState } from "react";
 
 const inputStyle = {
     padding: "8px",
@@ -19,25 +20,54 @@ const buttonStyle = {
 
 const FormPage = () => {
     //uncontrolled component/input
-    const inputRef = useRef<HTMLInputElement>(null);
-    const inputEmailRef = useRef<HTMLInputElement>(null);
+    // const inputRef = useRef<HTMLInputElement>(null);
+    // const inputEmailRef = useRef<HTMLInputElement>(null);
+
+    const [fullNameErrorMessage, setFullNameErrorMessage] = useState("");
+    const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
 
     //controlled component/input
-    const [fullNameInput, setFullName] = useState("");
-    const [emailInput, setEmail] = useState("");
+    const [fullNameInput, setFullNameInput] = useState("");
+    const [passwordInput, setPasswordInput] = useState("");
 
-    const handleSubmit = () => {
-        const fullNameFormValue = inputRef.current?.value;
-        const emailFormValue = inputEmailRef.current?.value;
-        alert(`Full Name: ${fullNameFormValue}, Email: ${emailFormValue}`);
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        // const fullNameFormValue = inputRef.current?.value;
+        // const emailFormValue = inputEmailRef.current?.value;
+        // alert(`Full Name: ${fullNameFormValue}, Email: ${emailFormValue}`);
+
+        const fullNameValidation = fullNameInput.length < 3;
+        const passwordValidation = passwordInput.length < 8;
+
+        if (fullNameValidation) {
+            setFullNameErrorMessage(
+                "Full name must be at least 3 characters long."
+            );
+        } else {
+            setFullNameErrorMessage("");
+        }
+
+        if (passwordValidation) {
+            setPasswordErrorMessage(
+                "Password must be at least 8 characters long."
+            );
+        } else {
+            setPasswordErrorMessage("");
+        }
+
+        if (!fullNameValidation && !passwordValidation) {
+            alert(`Full Name: ${fullNameInput}, Password: ${passwordInput}`);
+        }
     };
 
     return (
         <div>
             <h1>Form Page</h1>
-            <h3>{fullNameInput}</h3>
+            <h3>Full Name: {fullNameInput}</h3>
+            <h3>Password: {passwordInput}</h3>
 
             <form
+                onSubmit={handleSubmit}
                 style={{
                     maxWidth: "50%",
                     margin: "0 auto",
@@ -48,25 +78,51 @@ const FormPage = () => {
             >
                 <label htmlFor="name">Name</label>
                 <input
-                    onChange={(event) => setFullName(event.target.value)}
+                    style={inputStyle}
+                    onChange={(event) => {
+                        setFullNameInput(event.target.value);
+
+                        const fullNameValidation =
+                            event.target.value.length < 3;
+
+                        if (fullNameValidation) {
+                            setFullNameErrorMessage(
+                                "Full name must be at least 3 characters long."
+                            );
+                        } else {
+                            setFullNameErrorMessage("");
+                        }
+                    }}
                     id="name"
                     type="text"
                     name="name"
-                    style={inputStyle}
+                    value={fullNameInput}
                 />
-                <label htmlFor="email">Email</label>
+                <span style={{ color: "red" }}>{fullNameErrorMessage}</span>
+                <label htmlFor="password">Password</label>
                 <input
-                    ref={inputEmailRef}
-                    id="email"
-                    type="email"
-                    name="email"
                     style={inputStyle}
+                    onChange={(event) => {
+                        setPasswordInput(event.target.value);
+
+                        const passwordValidation =
+                            event.target.value.length < 8;
+
+                        if (passwordValidation) {
+                            setPasswordErrorMessage(
+                                "Password must be at least 8 characters long."
+                            );
+                        } else {
+                            setPasswordErrorMessage("");
+                        }
+                    }}
+                    id="password"
+                    type="password"
+                    name="password"
+                    value={passwordInput}
                 />
-                <button
-                    style={buttonStyle}
-                    type="submit"
-                    onClick={handleSubmit}
-                >
+                <span style={{ color: "red" }}>{passwordErrorMessage}</span>
+                <button style={buttonStyle} type="submit">
                     Submit
                 </button>
             </form>
