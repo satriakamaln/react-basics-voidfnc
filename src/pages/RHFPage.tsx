@@ -33,15 +33,16 @@ type RegisterFormSchema = z.infer<typeof registerFormSchema>;
 
 const RHFPage = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const [submittedData, setSubmittedData] =
-        useState<RegisterFormSchema | null>(null);
+    const [submittedData, setSubmittedData] = useState<RegisterFormSchema[]>(
+        []
+    );
 
     const form = useForm<RegisterFormSchema>({
         resolver: zodResolver(registerFormSchema)
     });
 
     const handleRegisterUser = (values: RegisterFormSchema) => {
-        setSubmittedData(values);
+        setSubmittedData([...submittedData, values]);
         alert("Form submitted!");
         console.log(values);
         console.log(values.username);
@@ -51,6 +52,9 @@ const RHFPage = () => {
         console.log(values.dob);
         console.log(values.gender);
         console.log(values.isPregnant);
+
+        //setelah submit form, reset form
+        form.reset();
     };
     return (
         <div>
@@ -136,19 +140,25 @@ const RHFPage = () => {
                 </button>
             </form>
 
-            {submittedData && (
-                <div className="card">
-                    <p>Username: {submittedData.username}</p>
-                    <p>Password: {submittedData.password}</p>
-                    <p>Age: {submittedData.age}</p>
-                    <p>Gender: {submittedData.gender}</p>
-                    <p>Date of Birth: {submittedData.dob.toDateString()}</p>
-                    {submittedData.gender === "female" && (
-                        <p>
-                            Is Pregnant:{" "}
-                            {submittedData.isPregnant ? "Yes" : "No"}
-                        </p>
-                    )}
+            {submittedData.length > 0 && (
+                <div>
+                    <h2>Submitted Data:</h2>
+                    {submittedData.map((data, index) => (
+                        <div key={index} className="card">
+                            <h3>Data #{index + 1}</h3>
+                            <p>Username: {data.username}</p>
+                            <p>Password: {data.password}</p>
+                            <p>Age: {data.age}</p>
+                            <p>Gender: {data.gender}</p>
+                            <p>Date of Birth: {data.dob.toDateString()}</p>
+                            {data.gender === "female" && (
+                                <p>
+                                    Is Pregnant:{" "}
+                                    {data.isPregnant ? "Yes" : "No"}
+                                </p>
+                            )}
+                        </div>
+                    ))}
                 </div>
             )}
         </div>
