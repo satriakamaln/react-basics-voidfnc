@@ -5,7 +5,7 @@
 
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
+    background-color: #363636;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -55,4 +55,17 @@
 .container {
     max-width: 80%;
     margin: 0 auto;
+}
+
+.table {
+    border: 1px solid orange;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.table th,
+.table td,
+.table tr {
+    border: 1px solid orange;
+    padding: 8px;
 }
